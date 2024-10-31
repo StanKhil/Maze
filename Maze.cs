@@ -15,7 +15,7 @@
 
         public void Generate()
         {
-            for (ushort row = 0; row < Configuration.Rows-6; row++)
+            for (ushort row = 0; row < Configuration.Rows - 1; row++)
             {
                 for (ushort col = 0; col < Configuration.Columns; col++)
                 {
@@ -24,42 +24,45 @@
                     {
                         cell = CellType.WALL;
                     }
-                    if (r.Next(250) <10)
+                    else if (r.Next(250) <10)
                     {
                         cell = CellType.MEDAL;
                         medals++;
                     }
-                    if (r.Next(250) < 10)
+                    else if(r.Next(250) < 10)
                     {
                         cell = CellType.ENEMY;
                     }
-                    if (r.Next(250) < 5)
+                    else if(r.Next(250) < 5)
                     {
                         cell = CellType.HEAL;
                     }
-                    if (r.Next(250) < 5)
+                    else if(r.Next(250) < 5)
                     {
                         cell = CellType.ENERGY;
                     }
 
                     if (row == 0 || col == 0 ||
-                        row == Configuration.Rows - 1-6 ||
+                        row == Configuration.Rows - 1 - 1 ||
                         col == Configuration.Columns - 1)
                     {
+                        if (cell == CellType.MEDAL) medals--;
                         cell = CellType.WALL;
                     }
 
                     if (col == Parent.Hero.PosX &&
                         row == Parent.Hero.PosY)
                     {
+                        if (cell == CellType.MEDAL) medals--;
                         cell = CellType.HERO;
                     }
 
                     if (col == Parent.Hero.PosX + 1 &&
                         row == Parent.Hero.PosY ||
                         col == Configuration.Columns - 1 &&
-                        row == Configuration.Rows - 3-6)
+                        row == Configuration.Rows - 3 - 1)
                     {
+                        if (cell == CellType.MEDAL) medals--;
                         cell = CellType.HALL;
                     }
 
